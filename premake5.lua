@@ -31,9 +31,6 @@ workspace "MTASA"
 		"vendor",
 		"Shared/sdk", 
 	}
-	
-	 -- I know linking bcrypt here is ugly, but SharedUtil depends on it, thus it's required everywhere
-	links { "blowfish_bcrypt" }
 
 	defines { 
 		"_CRT_SECURE_NO_WARNINGS",
@@ -70,14 +67,14 @@ workspace "MTASA"
 		os.mkdir("Build/Symbols")
 		linkoptions "/PDB:\"Symbols\\$(ProjectName).pdb\""
 
-	filter {"system:windows", "toolset:*140*"}
+	filter {"system:windows", "toolset:*14*"}
 		defines { "_TIMESPEC_DEFINED" } -- fix pthread redefinition error, TODO: Remove when we fully moved to vs2015
 	
 	filter {"system:windows", "toolset:*_xp*"}
 		buildoptions { "/Zc:threadSafeInit-" } -- Fix Windows XP not initialising TLS early
 	
 	filter "system:windows"
-		toolset "v140"
+		toolset "v141"
 		flags { "StaticRuntime" }
 		defines { "WIN32", "_WIN32" }
 		includedirs { 
