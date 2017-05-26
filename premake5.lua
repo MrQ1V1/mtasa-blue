@@ -36,7 +36,8 @@ workspace "MTASA"
 		"_CRT_SECURE_NO_WARNINGS",
 		"_SCL_SECURE_NO_WARNINGS",
 		"_CRT_NONSTDC_NO_DEPRECATE",
-		"NOMINMAX"
+		"NOMINMAX",
+		"_TIMESPEC_DEFINED"
 	}
 		
 	-- Helper function for output path 
@@ -66,9 +67,6 @@ workspace "MTASA"
 	filter {"system:windows", "configurations:Nightly", "kind:not StaticLib"}
 		os.mkdir("Build/Symbols")
 		linkoptions "/PDB:\"Symbols\\$(ProjectName).pdb\""
-
-	filter {"system:windows", "toolset:*14*"}
-		defines { "_TIMESPEC_DEFINED" } -- fix pthread redefinition error, TODO: Remove when we fully moved to vs2015
 	
 	filter {"system:windows", "toolset:*_xp*"}
 		buildoptions { "/Zc:threadSafeInit-" } -- Fix Windows XP not initialising TLS early
